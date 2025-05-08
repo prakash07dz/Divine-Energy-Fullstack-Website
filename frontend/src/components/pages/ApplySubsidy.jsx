@@ -83,7 +83,7 @@ const ApplySubsidy = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/upload",
+        "https://devine-energy-fullstack-website-backend.onrender.com/api/upload",
         formDataToSend,
         {
           headers: { "Content-Type": "multipart/form-data" },

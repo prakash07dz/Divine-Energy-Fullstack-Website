@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+html {
+    scroll-behavior: smooth;
+}
+
+.file-upload {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border: 2px dashed #4CAF50;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.file-upload .custom-file-button {
+    background: #4CAF50;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.file-upload .file-name {
+    color: #333;
+}

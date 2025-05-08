@@ -1,0 +1,34 @@
+# Backend
+backend/node_modules/
+backend/.env
+backend/config/createAdmin.js
+backend/.DS_Store
+backend/dist/  # If using TypeScript with build output
+backend/debug.log  # Common log files
+backend/npm-debug.log
+backend/yarn-error.log
+backend/.cache/
+backend/.vscode/
+backend/.idea/
+
+# Frontend
+frontend/node_modules/
+frontend/.env
+frontend/.DS_Store
+frontend/dist/  # Vite build output
+frontend/.cache/
+frontend/npm-debug.log
+frontend/yarn-error.log
+frontend/.vscode/
+frontend/.idea/
+
+# Global Exclusions
+*.log
+*.lock
+.DS_Store
+Thumbs.db
+.env.local
+.env.development
+.env.production
+.env.test
+.env.example

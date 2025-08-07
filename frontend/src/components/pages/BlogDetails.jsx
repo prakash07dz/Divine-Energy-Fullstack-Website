@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import axios from "axios";
@@ -21,6 +21,47 @@ const BlogDetails = () => {
 
     fetchBlog();
   }, [id]);
+
+  useEffect(() => {
+    if (blog) {
+      // Dynamically set document title and meta tags
+      document.title = `${blog.title} | Divine Energy Blog`;
+
+      const metaDesc = document.querySelector("meta[name='description']");
+      if (metaDesc) {
+        metaDesc.setAttribute("content", blog.content?.slice(0, 150));
+      } else {
+        const newMeta = document.createElement("meta");
+        newMeta.name = "description";
+        newMeta.content = blog.content?.slice(0, 150);
+        document.head.appendChild(newMeta);
+      }
+
+      const ogTitle = document.querySelector("meta[property='og:title']");
+      if (!ogTitle) {
+        const og = document.createElement("meta");
+        og.setAttribute("property", "og:title");
+        og.setAttribute("content", blog.title);
+        document.head.appendChild(og);
+      }
+
+      const ogDesc = document.querySelector("meta[property='og:description']");
+      if (!ogDesc) {
+        const og = document.createElement("meta");
+        og.setAttribute("property", "og:description");
+        og.setAttribute("content", blog.content?.slice(0, 150));
+        document.head.appendChild(og);
+      }
+
+      const ogImg = document.querySelector("meta[property='og:image']");
+      if (!ogImg && blog.image) {
+        const og = document.createElement("meta");
+        og.setAttribute("property", "og:image");
+        og.setAttribute("content", blog.image);
+        document.head.appendChild(og);
+      }
+    }
+  }, [blog]);
 
   if (!blog) {
     return <p className="text-center text-gray-600">Loading...</p>;
@@ -52,7 +93,6 @@ const BlogDetails = () => {
 
           <p className="text-gray-700 mt-4">{blog.content}</p>
 
-          {/* Back to Blog Page */}
           <div className="mt-6">
             <Link
               to="/"

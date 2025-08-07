@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { FaProjectDiagram, FaUsers, FaBolt, FaClock } from "react-icons/fa";
@@ -30,8 +30,12 @@ const About = () => {
   const { t } = useTranslation();
 
   return (
-    <section id="about" className="py-12 bg-gray-100">
-      {/* About Section */}
+    <section
+      id="about"
+      className="py-12 bg-gray-100"
+      aria-label="About Divine Energy and our achievements"
+    >
+      {/* About Company Section */}
       <div className="container mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center">
         <div className="md:w-1/2">
           <h2 className="text-4xl font-bold text-green-700">
@@ -44,18 +48,22 @@ const About = () => {
         <div className="md:w-1/2 mt-6 md:mt-0">
           <img
             src="/images/about/about.avif"
-            alt="About Devine Energy"
+            alt="Our mission and solar energy solutions at Divine Energy"
             loading="lazy"
             className="w-full rounded-lg shadow-lg"
           />
         </div>
       </div>
 
-      {/* Our Achievements */}
-      <div className="mt-12 container mx-auto px-6 bg-white shadow-md p-8 rounded-lg md:mx-auto max-w-full">
+      {/* Achievements Section */}
+      <div
+        className="mt-12 container mx-auto px-6 bg-white shadow-md p-8 rounded-lg md:mx-auto max-w-full"
+        aria-label="Company Achievements and Statistics"
+      >
         <h3 className="text-3xl font-semibold text-green-700 text-center">
           {t("achievements")}
         </h3>
+
         <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {[
             {
@@ -71,6 +79,7 @@ const About = () => {
               <motion.div
                 whileHover={{ scale: 1.1 }}
                 className="text-green-600 text-5xl mx-auto"
+                aria-hidden="true"
               >
                 {item.icon}
               </motion.div>

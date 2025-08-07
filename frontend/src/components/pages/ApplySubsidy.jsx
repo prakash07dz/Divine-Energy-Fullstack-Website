@@ -31,21 +31,18 @@ const ApplySubsidy = () => {
   const validateForm = () => {
     const newErrors = {};
 
-    // Validate Full Name
     if (!formData.fullName.trim()) {
       newErrors.fullName = "Full Name is required.";
     } else if (!/^[A-Za-z\s]{2,}$/.test(formData.fullName)) {
       newErrors.fullName = "Full Name must contain only letters and spaces.";
     }
 
-    // Validate Mobile Number
     if (!formData.mobileNumber.trim()) {
       newErrors.mobileNumber = "Mobile Number is required.";
     } else if (!/^\d{10}$/.test(formData.mobileNumber)) {
       newErrors.mobileNumber = "Mobile Number must be exactly 10 digits.";
     }
 
-    // Validate Files
     const requiredFiles = [
       "aadharCard",
       "panCard",
@@ -67,9 +64,7 @@ const ApplySubsidy = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     setLoading(true);
 
@@ -102,7 +97,10 @@ const ApplySubsidy = () => {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100 px-4">
+    <section
+      className="min-h-screen flex justify-center items-center bg-gray-100 px-4"
+      aria-label="Government solar subsidy application form"
+    >
       <div className="bg-white shadow-lg rounded-lg p-8 max-w-3xl w-full">
         <h2 className="text-3xl font-semibold text-center text-green-700 mb-6">
           Apply for Government Subsidy
@@ -114,12 +112,16 @@ const ApplySubsidy = () => {
         >
           {/* Full Name */}
           <div>
-            <label className="block font-medium">Full Name</label>
+            <label htmlFor="fullName" className="block font-medium">
+              Full Name
+            </label>
             <input
               type="text"
               name="fullName"
+              id="fullName"
               value={formData.fullName}
               onChange={handleChange}
+              aria-label="Full Name"
               className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 ${
                 errors.fullName ? "border-red-500" : ""
               }`}
@@ -130,13 +132,18 @@ const ApplySubsidy = () => {
             )}
           </div>
 
+          {/* Mobile Number */}
           <div>
-            <label className="block font-medium">Mobile Number</label>
+            <label htmlFor="mobileNumber" className="block font-medium">
+              Mobile Number
+            </label>
             <input
               type="tel"
               name="mobileNumber"
+              id="mobileNumber"
               value={formData.mobileNumber}
               onChange={handleChange}
+              aria-label="Mobile Number"
               className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 ${
                 errors.mobileNumber ? "border-red-500" : ""
               }`}
@@ -157,15 +164,19 @@ const ApplySubsidy = () => {
             "passportPhoto",
           ].map((name) => (
             <div key={name}>
-              <label className="block font-medium capitalize">
+              <label htmlFor={name} className="block font-medium capitalize">
                 {name.replace(/([A-Z])/g, " $1").trim()}
               </label>
               <div className="flex items-center space-x-2">
-                <label className="bg-green-400 text-black py-2 px-4 rounded-lg cursor-pointer hover:bg-green-500 transition">
+                <label
+                  htmlFor={name}
+                  className="bg-green-400 text-black py-2 px-4 rounded-lg cursor-pointer hover:bg-green-500 transition"
+                >
                   Choose File
                   <input
                     type="file"
                     name={name}
+                    id={name}
                     onChange={handleFileChange}
                     className="hidden"
                     required
@@ -187,6 +198,7 @@ const ApplySubsidy = () => {
           <div className="md:col-span-2 flex justify-center mt-4">
             <button
               type="submit"
+              aria-label="Submit subsidy application"
               disabled={loading}
               className={`cursor-pointer bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg text-lg transition ${
                 loading ? "opacity-50 cursor-not-allowed" : ""
@@ -197,7 +209,7 @@ const ApplySubsidy = () => {
           </div>
         </form>
       </div>
-    </div>
+    </section>
   );
 };
 

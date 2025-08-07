@@ -1,4 +1,3 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 
 const Home = () => {
@@ -16,24 +15,36 @@ const Home = () => {
     <section
       id="home"
       className="h-screen flex flex-col justify-center items-center text-center bg-cover bg-center bg-no-repeat relative"
+      aria-label="Hero Section"
       style={{ backgroundImage: "url('/images/bg/hero-bg.avif')" }}
     >
       <div className="absolute inset-0 bg-black/50"></div>
 
       <div className="relative z-10 px-6 max-w-full">
         <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
-          {t("hero_title")}
+          {t("hero_title") || "Empowering India with Solar Energy"}
         </h1>
         <p className="mt-4 text-lg md:text-xl text-white max-w-full mx-auto">
-          {t("hero_description")}
+          {t("hero_description") ||
+            "Get a free solar consultation and explore government subsidy benefits for your rooftop installation."}
         </p>
         <button
           onClick={handleWhatsAppRedirect}
           className="mt-6 px-8 py-4 bg-green-500 text-white font-bold rounded-lg shadow-lg hover:bg-green-600 transition duration-300 cursor-pointer"
+          aria-label="WhatsApp Free Consultation"
         >
-          {t("hero_button")}
+          {t("hero_button") || "Get Free Consultation"}
         </button>
       </div>
+
+      {/* Optional for SEO: Fallback if JS is disabled */}
+      <noscript>
+        <img
+          src="/images/bg/hero-bg.avif"
+          alt="Solar energy solutions background"
+          style={{ display: "none" }}
+        />
+      </noscript>
     </section>
   );
 };

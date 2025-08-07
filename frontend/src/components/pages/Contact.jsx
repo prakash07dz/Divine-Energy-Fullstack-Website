@@ -24,9 +24,7 @@ const Contact = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const validateMobile = (mobile) => {
-    return /^\d{10}$/.test(mobile);
-  };
+  const validateMobile = (mobile) => /^\d{10}$/.test(mobile);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -75,9 +73,16 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-16 bg-white">
+    <section
+      id="contact"
+      className="py-16 bg-white"
+      aria-labelledby="contact-heading"
+    >
       <div className="container mx-auto px-6 md:px-12">
-        <h2 className="text-4xl font-bold text-green-700 text-center">
+        <h2
+          id="contact-heading"
+          className="text-4xl font-bold text-green-700 text-center"
+        >
           {t("contact.heading")}
         </h2>
         <p className="mt-2 text-lg text-gray-700 text-center">
@@ -85,10 +90,14 @@ const Contact = () => {
         </p>
 
         {/* Contact Details */}
-        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3 text-center">
+        <address
+          className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3 text-center not-italic"
+          aria-label="Contact information"
+        >
           <div
             className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all cursor-pointer"
             onClick={handlePhoneClick}
+            aria-label={`Call us at ${phoneNumber}`}
           >
             <FaPhoneAlt className="text-green-700 text-3xl mx-auto mb-2" />
             <h4 className="text-lg font-semibold">{t("contact.phone")}</h4>
@@ -98,6 +107,7 @@ const Contact = () => {
           <div
             className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all cursor-pointer"
             onClick={handleEmailClick}
+            aria-label={`Send an email to ${emailAddress}`}
           >
             <FaEnvelope className="text-green-700 text-3xl mx-auto mb-2" />
             <h4 className="text-lg font-semibold">{t("contact.email")}</h4>
@@ -107,62 +117,80 @@ const Contact = () => {
           <div
             className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all cursor-pointer"
             onClick={handleLocationClick}
+            aria-label={`View our location in ${locationAddress}`}
           >
             <FaMapMarkerAlt className="text-green-700 text-3xl mx-auto mb-2" />
             <h4 className="text-lg font-semibold">{t("contact.location")}</h4>
             <p className="text-gray-600">{locationAddress}</p>
           </div>
-        </div>
+        </address>
 
         {/* Contact Form */}
-        <div className="mt-12 max-w-lg mx-auto bg-white p-8 rounded-lg shadow-lg">
+        <div
+          className="mt-12 max-w-lg mx-auto bg-white p-8 rounded-lg shadow-lg"
+          aria-label="Contact form section"
+        >
           <h3 className="text-2xl font-semibold text-center text-green-700">
             {t("contact.form_title")}
           </h3>
 
-          <form onSubmit={handleSubmit} className="mt-6">
+          <form onSubmit={handleSubmit} className="mt-6" noValidate>
             <div className="mb-4">
-              <label className="block text-gray-700 font-medium">
+              <label htmlFor="name" className="block text-gray-700 font-medium">
                 {t("contact.name")}
               </label>
               <input
                 type="text"
+                id="name"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
+                autoComplete="name"
+                aria-required="true"
+                required
                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
                 placeholder={t("contact.name_placeholder")}
-                required
               />
             </div>
 
             <div className="mb-4">
-              <label className="block text-gray-700 font-medium">
+              <label
+                htmlFor="mobile"
+                className="block text-gray-700 font-medium"
+              >
                 {t("contact.mobile")}
               </label>
               <input
                 type="tel"
+                id="mobile"
                 name="mobile"
                 value={formData.mobile}
                 onChange={handleChange}
+                autoComplete="tel"
+                aria-required="true"
+                required
                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
                 placeholder={t("contact.mobile_placeholder")}
-                required
               />
             </div>
 
             <div className="mb-4">
-              <label className="block text-gray-700 font-medium">
+              <label
+                htmlFor="message"
+                className="block text-gray-700 font-medium"
+              >
                 {t("contact.message")}
               </label>
               <textarea
+                id="message"
                 name="message"
                 rows="4"
                 value={formData.message}
                 onChange={handleChange}
+                aria-required="true"
+                required
                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
                 placeholder={t("contact.message_placeholder")}
-                required
               ></textarea>
             </div>
 
@@ -174,18 +202,21 @@ const Contact = () => {
                   : "bg-green-700 hover:bg-green-800 text-white"
               }`}
               disabled={loading}
+              aria-label="Submit contact form"
             >
               {loading ? "Sending..." : "Submit"}
             </button>
 
             {successMessage && (
-              <p className="mt-4 text-green-600 text-center">
+              <p className="mt-4 text-green-600 text-center" role="alert">
                 {successMessage}
               </p>
             )}
 
             {errorMessage && (
-              <p className="mt-4 text-red-600 text-center">{errorMessage}</p>
+              <p className="mt-4 text-red-600 text-center" role="alert">
+                {errorMessage}
+              </p>
             )}
           </form>
         </div>

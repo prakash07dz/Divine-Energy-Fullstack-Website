@@ -1,4 +1,3 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
@@ -31,9 +30,16 @@ const Testimonials = () => {
   const { t } = useTranslation();
 
   return (
-    <section id="testimonials" className="py-12 bg-white">
+    <section
+      id="testimonials"
+      className="py-12 bg-white"
+      aria-labelledby="testimonials-heading"
+    >
       <div className="container mx-auto px-6 md:px-12">
-        <h2 className="text-4xl font-bold text-green-700 text-center">
+        <h2
+          id="testimonials-heading"
+          className="text-4xl font-bold text-green-700 text-center"
+        >
           {t("testimonials.heading")}
         </h2>
         <p className="mt-2 text-lg text-gray-700 text-center">
@@ -55,19 +61,27 @@ const Testimonials = () => {
         >
           {testimonialsData.map((testimonial) => (
             <SwiperSlide key={testimonial.id}>
-              <div className="bg-white p-6 m-5 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105 hover:shadow-xl text-center mx-4">
-                <img
-                  src={testimonial.image}
-                  alt={t(`testimonials.list.${testimonial.key}.name`)}
-                  loading="lazy"
-                  className="w-24 h-24 rounded-full mx-auto object-cover border-4 border-green-500 transition-transform duration-300 hover:scale-110"
-                />
+              <article className="bg-white p-6 m-5 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105 hover:shadow-xl text-center mx-4">
+                <figure>
+                  <img
+                    src={testimonial.image}
+                    alt={
+                      t(`testimonials.list.${testimonial.key}.name`) + " photo"
+                    }
+                    loading="lazy"
+                    className="w-24 h-24 rounded-full mx-auto object-cover border-4 border-green-500 transition-transform duration-300 hover:scale-110"
+                  />
+                  <figcaption>
+                    <h3 className="text-xl font-semibold mt-3 text-green-700">
+                      {t(`testimonials.list.${testimonial.key}.name`)}
+                    </h3>
+                  </figcaption>
+                </figure>
 
-                <h3 className="text-xl font-semibold mt-3 text-green-700">
-                  {t(`testimonials.list.${testimonial.key}.name`)}
-                </h3>
-
-                <div className="flex justify-center mt-2">
+                <div
+                  className="flex justify-center mt-2"
+                  aria-label={`Rated ${testimonial.rating} out of 5 stars`}
+                >
                   {[...Array(testimonial.rating)].map((_, index) => (
                     <FaStar key={index} className="text-yellow-500 text-lg" />
                   ))}
@@ -76,7 +90,7 @@ const Testimonials = () => {
                 <p className="text-gray-600 mt-3">
                   {t(`testimonials.list.${testimonial.key}.review`)}
                 </p>
-              </div>
+              </article>
             </SwiperSlide>
           ))}
         </Swiper>

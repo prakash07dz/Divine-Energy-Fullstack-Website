@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -24,9 +24,16 @@ const Blog = () => {
   }, []);
 
   return (
-    <section id="blog" className="py-12 bg-gray-100">
+    <section
+      id="blog"
+      className="py-12 bg-gray-100"
+      aria-labelledby="blog-heading"
+    >
       <div className="container mx-auto px-6 md:px-12">
-        <h2 className="text-4xl font-bold text-green-700 text-center">
+        <h2
+          id="blog-heading"
+          className="text-4xl font-bold text-green-700 text-center"
+        >
           {t("blog.heading")}
         </h2>
         <p className="mt-2 text-lg text-gray-700 text-center">
@@ -35,9 +42,10 @@ const Blog = () => {
 
         <div className="mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {(showAll ? blogs : blogs.slice(0, 3)).map((blog) => (
-            <div
+            <article
               key={blog._id}
               className="bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+              aria-label={`Blog post: ${blog.title}`}
             >
               <div className="overflow-hidden">
                 <img
@@ -50,12 +58,14 @@ const Blog = () => {
 
               <div className="p-6">
                 <div className="flex items-center text-gray-600 text-sm">
-                  <FaRegCalendarAlt className="mr-2" />
-                  {new Date(blog.date).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
+                  <FaRegCalendarAlt className="mr-2" aria-hidden="true" />
+                  <time dateTime={blog.date}>
+                    {new Date(blog.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </time>
                 </div>
 
                 <h3 className="mt-2 text-xl font-semibold text-green-700">
@@ -73,7 +83,7 @@ const Blog = () => {
                   {t("blog.read_more")} →
                 </Link>
               </div>
-            </div>
+            </article>
           ))}
         </div>
 
@@ -82,6 +92,7 @@ const Blog = () => {
             <button
               onClick={() => setShowAll(true)}
               className="px-6 py-2 bg-green-700 text-white font-semibold rounded-lg hover:bg-green-800 transition duration-300"
+              aria-label="Load more blogs"
             >
               {t("blog.read_more_blogs")}
             </button>

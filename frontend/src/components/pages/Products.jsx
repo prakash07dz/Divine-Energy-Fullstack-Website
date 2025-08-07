@@ -1,4 +1,3 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 
 const Products = () => {
@@ -46,34 +45,44 @@ const Products = () => {
   return (
     <section id="products" className="py-16 bg-white">
       <div className="container mx-auto px-6 md:px-12">
-        <h2 className="text-4xl font-bold text-green-700 text-center">
-          {t("products.heading")}
-        </h2>
-        <p className="mt-2 text-lg text-gray-700 text-center">
-          {t("products.subheading")}
-        </p>
+        <header className="text-center mb-12">
+          <h2 className="text-4xl font-bold text-green-700">
+            {t("products.heading")}
+          </h2>
+          <p className="mt-2 text-lg text-gray-700">
+            {t("products.subheading")}
+          </p>
+        </header>
 
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map((product) => (
-            <div
+            <article
               key={product.id}
               className="bg-white p-6 rounded-lg shadow-md text-center transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+              itemScope
+              itemType="https://schema.org/Product"
             >
-              <div className="overflow-hidden rounded-lg">
+              <figure className="overflow-hidden rounded-lg">
                 <img
                   src={product.image}
-                  alt={product.title}
+                  alt={`Image of ${product.title}`}
                   loading="lazy"
                   className="w-full h-40 object-cover rounded-lg transition-transform duration-300 hover:scale-110"
+                  itemProp="image"
                 />
-              </div>
+              </figure>
 
-              <h3 className="text-2xl font-semibold mt-4 text-green-700">
+              <h3
+                className="text-2xl font-semibold mt-4 text-green-700"
+                itemProp="name"
+              >
                 {product.title}
               </h3>
 
-              <p className="text-gray-600 mt-2">{product.description}</p>
-            </div>
+              <p className="text-gray-600 mt-2" itemProp="description">
+                {product.description}
+              </p>
+            </article>
           ))}
         </div>
       </div>
